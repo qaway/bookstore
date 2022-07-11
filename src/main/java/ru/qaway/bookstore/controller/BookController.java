@@ -103,12 +103,12 @@ public class BookController {
     public ResponseEntity<Book> update(
             @Parameter(description = "Identifier of the book.")
             @PathVariable(name = "id") int id,
-            @RequestBody BookRequest bookRequest) {
+            @Valid @RequestBody BookRequest bookRequest) {
         Book book = bookService.update(bookRequest, id);
 
         return book != null
                 ? new ResponseEntity<>(book, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Operation(summary = "Delete book by id")
@@ -125,8 +125,15 @@ public class BookController {
 
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Operation(summary = "Delete all books")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
+    @DeleteMapping(value = "/books")
+    public ResponseEntity<?> delete() {
+        bookService.delete();
 
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -62,4 +62,9 @@ public class BookServiceImpl implements BookService {
     public boolean delete(int id) {
         return BOOK_REPOSITORY_MAP.remove(id) != null;
     }
+
+    @Override
+    public void delete() {
+        BOOK_REPOSITORY_MAP.clear();;
+    }
 }
