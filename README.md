@@ -14,10 +14,10 @@ Spring Boot service for practice with REST API testing course.
 - Docker for easy start
 
 # How to build <a name="build"></a>
-Run from the project root directory command:
+Run from the project root directory file:
 
 ```shell
-$ mvn clean package -Pdocker
+$ create_docker_image.sh
 ```
 
 # How to start <a name="start"></a>

@@ -132,34 +132,5 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>docker</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.spotify</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>1.2.2</version>
-                        <executions>
-                            <execution>
-                                <id>prepare-app-container</id>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <imageName>bookstore-app</imageName>
-                                    <dockerDirectory>
-                                        ${project.build.directory}/container-files-app/container-files/bookstore
-                                    </dockerDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

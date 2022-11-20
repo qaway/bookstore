@@ -15,7 +15,6 @@ RUN yum install shadow-utils.x86_64 -y && \
     chown -R bookstore:bookstore /dumps
 USER bookstore
 COPY application.properties /bookstore/application.properties
-#COPY logback.xml /bookstore/logback.xml
 COPY bookstore-app.jar /bookstore/bookstore-app.jar
 
 
