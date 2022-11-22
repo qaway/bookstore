@@ -9,7 +9,9 @@ RUN yum install shadow-utils-4.1.5.1 -y && \
     groupadd -r bookstore -f -g 1001 && \
     useradd -u 1002 -r -g bookstore -m -d /bookstore -s /sbin/nologin bookstore && \
     mkdir -p /dumps/bookstore/tmp && \
-    mkdir -p /tmps
+    mkdir -p /tmps && \
+    chown -R bookstore:bookstore /tmps && \
+    chown -R bookstore:bookstore /dumps 
 
 USER bookstore
 COPY --chown=bookstore:bookstore application.properties /bookstore/application.properties
