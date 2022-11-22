@@ -4,7 +4,7 @@ EXPOSE 8080
 
 LABEL project="local" component="test" app="bookstore-app"
 
-RUN yum install shadow-utils.x86_64 -y && \
+RUN yum install shadow-utils-4.1.5.1 -y && \
     yum clean all -y && \
     groupadd -r bookstore -f -g 1001 && \
     useradd -u 1002 -r -g bookstore -m -d /bookstore -s /sbin/nologin bookstore && \
