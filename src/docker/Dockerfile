@@ -9,13 +9,11 @@ RUN yum install shadow-utils-4.1.5.1 -y && \
     groupadd -r bookstore -f -g 1001 && \
     useradd -u 1002 -r -g bookstore -m -d /bookstore -s /sbin/nologin bookstore && \
     mkdir -p /dumps/bookstore/tmp && \
-    mkdir -p /tmps && \
-    chown -R bookstore:bookstore /bookstore && \
-    chown -R bookstore:bookstore /tmps && \
-    chown -R bookstore:bookstore /dumps
+    mkdir -p /tmps
+
 USER bookstore
-COPY application.properties /bookstore/application.properties
-COPY bookstore-app.jar /bookstore/bookstore-app.jar
+COPY --chown=bookstore:bookstore application.properties /bookstore/application.properties
+COPY --chown=bookstore:bookstore bookstore-app.jar /bookstore/bookstore-app.jar
 
 
 CMD ["java", "-Xlog:gc", "-server", "-Xmn700m", "-Xms2048M", "-Xmx2048M", "-Dserver.tomcat.basedir=/tmps", "-Djava.io.tmpdir=/tmps",\
