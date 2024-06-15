@@ -18,9 +18,8 @@ import ru.qaway.bookstore.service.BookService;
 import javax.validation.Valid;
 import java.util.List;
 
-@Tag(name = "Books", description = "APIs for books management")
 @RestController
-@Api(tags = "Books Controller")
+@Api(tags = "Books", value = "APIs for books management")
 public class BookController {
 
     private final BookService bookService;
@@ -30,23 +29,22 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @Operation(summary = "Add new book to catalog")
-    @ApiResponses(value = {
+    @Operation(summary = "Add new book to catalog", responses = {
             @ApiResponse(responseCode = "201", description = "Created"),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "403", description = "Forbidden")})
+            @ApiResponse(responseCode = "400", description = "Bad Request")
+    })
     @PostMapping(value = "/books")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<Book> create(@Valid @RequestBody BookRequest bookRequest) {
         Book book = bookService.create(bookRequest);
         return new ResponseEntity<>(book, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Get books from catalog")
-    @ApiResponses(value = {
+    @Operation(summary = "Get books from catalog", responses = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
-            @ApiResponse(responseCode = "404", description = "Not Found")})
+            @ApiResponse(responseCode = "404", description = "Not Found")
+    })
     @GetMapping(value = "/books")
     public ResponseEntity<BooksResponse> read(
             @Parameter(description = "Position to start from. Default value : 0.")
@@ -76,12 +74,11 @@ public class BookController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Operation(summary = "Get book from catalog by id")
-    @ApiResponses(value = {
+    @Operation(summary = "Get book from catalog by id", responses = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
-            @ApiResponse(responseCode = "404", description = "Not Found")})
+            @ApiResponse(responseCode = "404", description = "Not Found")
+    })
     @GetMapping(value = "/books/{id}")
     public ResponseEntity<Book> read(
             @Parameter(description = "Identifier of the book.")
@@ -93,12 +90,11 @@ public class BookController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Operation(summary = "Update existed book by id")
-    @ApiResponses(value = {
+    @Operation(summary = "Update existed book by id", responses = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
-            @ApiResponse(responseCode = "404", description = "Not Found")})
+            @ApiResponse(responseCode = "404", description = "Not Found")
+    })
     @PutMapping(value = "/books/{id}")
     public ResponseEntity<Book> update(
             @Parameter(description = "Identifier of the book.")
@@ -111,12 +107,11 @@ public class BookController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Operation(summary = "Delete book by id")
-    @ApiResponses(value = {
+    @Operation(summary = "Delete book by id", responses = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
-            @ApiResponse(responseCode = "404", description = "Not Found")})
+            @ApiResponse(responseCode = "404", description = "Not Found")
+    })
     @DeleteMapping(value = "/books/{id}")
     public ResponseEntity<?> delete(
             @Parameter(description = "Identifier of the book.")
